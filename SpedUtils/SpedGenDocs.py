@@ -1,4 +1,5 @@
 import openpyxl 
+from copy import deepcopy
 
 class SpedPlan:
     def __init__(self) -> None:
@@ -8,26 +9,55 @@ class SpedPlan:
         return
 
 
-    def generate_sped_plan(self, sped_block:list[str], block_infos:dict) -> None:
+    def generate_sped_log(self, block_infos:dict) -> None:
+        file = open('SpedLog.txt','a')
+        file.truncate(0)
+        for key, values in block_infos.items():
+            file.write(f'{key[-4:]}:{values}\n')
+        file.close()
+        return
+    
+
+    def generate_sped_plan(self, block_records: list, path_sped_log: str, size_sped_info: int) -> None:
+        file = open(path_sped_log, 'r')
+
         data_plan = []
-        for record in sped_block:
-            self.__wb.create_sheet(record)
+        prohibited_caracters = ['\n', r"\\n'"]
+        counter = 0
+        plan_rows = []
+        a = 0
 
-        for key, value in block_infos.items():
-            for info in value:
-                format_info = info.split('|')
-                for f_i in format_info:
-                    if len(f_i) > 0 and f_i != '\n':
-                        data_plan.append(f_i)
+        if size_sped_info < 1000:
+            counter = 1001 - size_sped_info
 
-                ws_name = self.__wb[key[-4:]].title
-                ws = self.__wb[key[-4:]]
-                if key[-4:] == ws_name:
-                    ws.append(data_plan)
-                    data_plan.clear()
-                    
+        for record in block_records:
+                self.__wb.create_sheet(record)
         self.__wb.save('relatório sped.xlsx')
 
+        for f in file:
+            data_plan.append([f[0:4]])
+            if counter < 1000:
+                start_key, end_key = f.index('{'), f.index('}')
+                info = f[start_key+1:end_key]
+                format_info = info.split('|')
+
+                for f_i in format_info:
+                    if len(f_i) > 0 and f_i not in prohibited_caracters:
+                        data_plan[0].append(f_i)
+                plan_rows.append(deepcopy(data_plan))
+                data_plan.clear()
+                counter += 1
+            else:
+                for pr in plan_rows:
+                    ws_name = self.__wb[pr[0][0]].title
+                    ws = self.__wb[pr[0][0]]
+                    if pr[0][0] == ws_name:
+                        ws.append(pr[0])
+                counter = 0
+                a += 1
+                print(f'Gravação de número {a}')
+                self.__wb.save('relatório sped.xlsx')
+        return
 
 if __name__ == '__main__':
     sp = SpedPlan()

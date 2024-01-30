@@ -4,26 +4,21 @@ class SpedReader:
         return
 
 
-    def record_reader(self) -> dict:
+    def record_reader(self, registration_requested: list) -> dict:
         self.__sped_file = open(self.__sped_path, 'r', encoding='latin-1', errors='ignore')
-        self.__full_sped = {}
         self.__sped_erro = []
-        
+        self.__sped_infos = {}
+
         for index, sped_line in enumerate(self.__sped_file):
             try:
                 records = sped_line[1:5]
-                self.__full_sped[f'{index}-{records}'] = {f'{sped_line[6:]}'}
+                if records in registration_requested:
+                    self.__sped_infos[f'{index}-{records}'] = {f'{sped_line[6:]}'}
             except Exception as erro:
                 self.__sped_erro.append(('Erro:',erro,'on record:', sped_line))
                 continue
-        return self.__full_sped
-    
-    def find_records(self, full_sped: dict ,registration_requested: str) -> dict:
-        self.__sped_infos = {}
-        for key, value in full_sped.items():
-            if key[-4:] == registration_requested:
-                self.__sped_infos[key] = value        
-        return self.__sped_infos
+        self.__size_sped_infos = len(self.__sped_infos)
+        return self.__sped_infos, self.__size_sped_infos
     
 
     @property
