@@ -1,6 +1,6 @@
 ## EM DESENVOLVIMENTO (README EM CONSTRUÇÃO)
 
-## Bem-vindo(a) ao repositório do ConversorSped**
+## Bem-vindo(a) ao repositório do ConversorSped
 Olá, eu sou Pedro, e este é mais um dos meus projetos pessoais onde compartilho soluções práticas para desafios do dia a dia. Ao navegar pela vasta rede, é possível encontrar inúmeros projetos interessantes, mas muitos deles carecem de aplicabilidade prática em situações reais.
 
 A proposta deste repositório é oferecer soluções para problemas que surgiram no meu cotidiano e que foram resolvidos por meio deste código. Cada projeto reflete uma experiência pessoal e uma abordagem prática para resolver desafios específicos.
