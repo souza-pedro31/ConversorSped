@@ -24,7 +24,9 @@ Este repositório foi projetado com simplicidade em mente. Seguir estes passos s
 
  - Antes de executar o script, certifique-se de instalar todas as dependências necessárias e o pacote autoral "SpedUtils" e seus módulos também autorais. Você pode fazer isso executando o seguinte comando no terminal:
 
-```pip freeze install requirements.txt``` 
+```
+pip freeze install requirements.txt
+```
 
 3. **Execute o Script:**
 
@@ -39,10 +41,11 @@ Este repositório foi projetado com simplicidade em mente. Seguir estes passos s
 4. Faça a chamada do método generate_sped_csv e passe como parâmetro a variável que contém os registros a serem gravados.
 
 
- ```sped_contribuicoes = SpedContribuicoes(caminho do sped)
+```sped_contribuicoes = SpedContribuicoes(caminho do sped)
     bloco_zero = sped_contribuicoes.block_zero
     registros = sped_contribuicoes.record_reader(bloco_zero)
-    sped_contribuicoes.generate_sped_csv(registros)``` 
+    sped_contribuicoes.generate_sped_csv(registros)
+```
 
 Espero que esta ferramenta torne sua vida um pouco mais fácil!
 
